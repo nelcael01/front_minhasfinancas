@@ -29,6 +29,7 @@ class Login extends React.Component{
                           <FormGroup label = "E-mail: *" htmlFor = "exampleInputEmail1">
                             <input 
                               value={this.state.email}
+                              style={{marginBottom: '10px'}}
                               onChange={e => this.setState({email: e.target.value})}
                               type="email"
                               className="form-control"
@@ -45,7 +46,8 @@ class Login extends React.Component{
                               id="exampleInputPassword1"
                               placeholder="Password"/>
                           </FormGroup>
-                          <button onClick={this.entrar} className="btn btn-success">Entrar</button>
+                          <br />
+                          <button style={{marginRight: '10px'}} onClick={this.entrar} className="btn btn-success">Entrar</button>
                           <button className="btn btn-danger">Cadastrar</button>
                         </fieldset>
                       </form>
