@@ -6,6 +6,17 @@ import SelectMenu from '../../components/selectMenu';
 import LancamentosTable from './lancamentosTable';
 
 class ConsultaLancamento extends React.Component{
+  
+  state = {
+    ano: '',
+    mes: '',
+    tipo: ''
+  }
+
+  buscar = () =>{
+    console.log(this.state);
+  }
+
   render(){
     const meses = [
       {label: 'SELECIONE...', value: ''},
@@ -39,7 +50,10 @@ class ConsultaLancamento extends React.Component{
             <div className="col-lg-6">
               <div className="bs-comp onent">
                 <FormGroup label="Ano *" htmlFor="inputAno">
-                  <input type="text"
+                  <input 
+                    type="text"
+                    value={this.state.ano}
+                    onChange={e => this.setState({ano: e.target.value})}
                     className="form-control"
                     id="inputAno"
                     placeholder="Digite o Ano"
@@ -47,13 +61,23 @@ class ConsultaLancamento extends React.Component{
                   />
                 </FormGroup>
                 <FormGroup label="Mês *" htmlFor="inputMes">
-                  <SelectMenu id = "inputMes" lista={meses} style={{marginBottom: '10px'}}/>
+                  <SelectMenu
+                    value={this.state.mes}
+                    onChange={e => this.setState({mes: e.target.value})}
+                    id = "inputMes" lista={meses}
+                    style={{marginBottom: '10px'}}
+                  />
                 </FormGroup>
                 <FormGroup label="Tipo do lançamento *" htmlFor="inputTipo">
-                  <SelectMenu id = "inputTipo" lista={tipos} style={{marginBottom: '10px'}}/>
+                  <SelectMenu
+                    value={this.state.tipo}
+                    onChange={e => this.setState({tipo: e.target.value})}
+                    id = "inputTipo" lista={tipos}
+                    style={{marginBottom: '10px'}}
+                  />
                 </FormGroup>
                 <div style={{marginTop: '30px'}}>
-                  <button type="button" className="btn btn-success" style={{marginRight: '10px'}}>Buscar</button>
+                  <button type="button" onClick={this.buscar} className="btn btn-success" style={{marginRight: '10px'}}>Buscar</button>
                   <button type="button" className="btn btn-danger">Cadastrar</button>
                 </div>
               </div>
