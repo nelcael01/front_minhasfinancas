@@ -9,7 +9,7 @@ function SelectMenu(props) {
   })
   
   return(
-    <select {...props} className="form-control">
+    <select {...props} className="form-select">
       {options}
     </select>
   )
