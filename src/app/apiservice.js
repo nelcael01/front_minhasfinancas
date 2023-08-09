@@ -1,5 +1,4 @@
 import axios from "axios";
-import { objects } from './../../node_modules/babel-preset-react-app/node_modules/@babel/preset-react/node_modules/@babel/plugin-transform-react-display-name/node_modules/@babel/core/lib/config/config-descriptors';
 
 const httpClient = axios.create({
   baseURL: 'http://localhost:8080'

@@ -4,20 +4,45 @@ import Card from '../../components/card';
 import FormGroup from '../../components/form-group';
 import SelectMenu from '../../components/selectMenu';
 import LancamentosTable from './lancamentosTable';
+import LancamentoService from "../../app/service/lancamentoService";
+import LocalStorageService from './../../app/service/localStorageService';
+import { mensagemErro } from "../../components/toastr";
 
 class ConsultaLancamento extends React.Component{
   
+  constructor(){
+    super()
+    this.service = new LancamentoService()
+  }
   state = {
     ano: '',
     mes: '',
-    tipo: ''
+    tipo: '',
+    lancamentos: []
   }
 
   buscar = () =>{
-    console.log(this.state);
+    console.log('entrou');
+    const usuarioLogado = LocalStorageService.obterItem('_usuario_logado')
+    const lancamentoFiltro = {
+      ano: this.state.ano,
+      mes: this.state.mes,
+      tipo: this.state.tipo,
+      usuario: usuarioLogado.id
+    }
+    console.log(lancamentoFiltro);
+    this.service.consultar(lancamentoFiltro)
+      .then(response => {
+        console.log('deu certo')
+        console.log(response.data)
+        this.setState({lancamentos: response.data
+      })}).catch(erro => {
+        mensagemErro(erro.data)
+      })
   }
 
   render(){
+
     const meses = [
       {label: 'SELECIONE...', value: ''},
       {label: 'Janeiro', value: 1},
@@ -38,10 +63,6 @@ class ConsultaLancamento extends React.Component{
       {label: 'SELECIONE...', value: ''},
       {label: 'Despesa', value: 'DESPESA'},
       {label: 'Receita', value: 'RECEITA'},
-    ]
-
-    const lancamentos = [
-      {id: 1, descricao: 'Primeiro lancamento', valor: 1200, tipo: 'DESPESA', mes: 5, status: 'PENDENTE'}
     ]
 
     return(
@@ -87,7 +108,7 @@ class ConsultaLancamento extends React.Component{
           <div className="row">
             <div className="col-md-12">
               <div className="bs-component">
-                <LancamentosTable lancamentos={lancamentos} />
+                <LancamentosTable lancamentos={this.state.lancamentos} />
               </div>
             </div>
           </div>

@@ -5,15 +5,27 @@ import LocalStorageService from './../app/service/localStorageService';
 class Home extends React.Component {
   
   state = {
-    saldo: 0,
+    saldo: null,
   }
 
   constructor(){
     super()
     this.usuarioService = new UsuarioService();
   }
-
+  
   componentDidMount() {
+    const usuarioLogado = LocalStorageService.obterItem('_usuario_logado')
+  
+    this.usuarioService.obterSaldoPorId(usuarioLogado.id)
+      .then(response =>{
+        this.setState({saldo: response.data})
+      }).catch( erro =>{
+        console.log(erro.response);
+      })
+  }
+
+  //resolver problema de atualização de saldo quando troca o usuário
+  componentDidUpdate() {
     const usuarioLogado = LocalStorageService.obterItem('_usuario_logado')
   
     this.usuarioService.obterSaldoPorId(usuarioLogado.id)
