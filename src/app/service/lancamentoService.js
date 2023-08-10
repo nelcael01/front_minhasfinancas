@@ -7,6 +7,10 @@ class LancamentoService extends ApiService{
     super('/api/lancamentos')
   }
 
+  salvar(lancamento){
+    return this.post('', lancamento)
+  }
+
   consultar(lancamentoFiltro){
     let params = `?ano=${lancamentoFiltro.ano}`
     if (lancamentoFiltro.mes) {
