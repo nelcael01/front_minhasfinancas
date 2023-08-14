@@ -64,11 +64,16 @@ class ConsultaLancamento extends React.Component{
     }
     this.service.consultar(lancamentoFiltro)
       .then(response => {
-        this.setState({lancamentos: response.data
-      })}).catch(erro => {
+        this.setState({lancamentos: response.data})
+      }).catch(erro => {
         mensagemErro(erro.data)
       })
   }
+
+  prepararFormularioCadastro = () => {
+    this.props.history.push('/cadastro-lancamentos')
+  }
+
 
 
   render(){
@@ -77,7 +82,7 @@ class ConsultaLancamento extends React.Component{
 
     const confirmDialogFooter = (
       <div>
-          <Button label="Confirmar" icon="pi pi-check" onClick={this.deletar} />
+          <Button label="Confirmar" icon="pi pi-check" onClick={this.deleteAction} />
           <Button label="Cancelar" icon="pi pi-times" onClick={this.cancelarDelecao} 
                   className="p-button-secondary" />
       </div>
@@ -128,7 +133,7 @@ class ConsultaLancamento extends React.Component{
                 </FormGroup>
                 <div style={{marginTop: '30px'}}>
                   <button type="button" onClick={this.buscar} className="btn btn-success" style={{marginRight: '10px'}}>Buscar</button>
-                  <button type="button" className="btn btn-danger">Cadastrar</button>
+                  <button type="button" className="btn btn-danger" onClick={this.prepararFormularioCadastro}>Cadastrar</button>
                 </div>
               </div>
             </div>

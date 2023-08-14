@@ -141,6 +141,7 @@ class CadastroLancamentos extends React.Component{
         </button>
         <button
           className="btn btn-danger"
+          onClick={ e => {this.props.history.push('/consulta-lancamentos')}}
         >
           Cancelar
         </button>
