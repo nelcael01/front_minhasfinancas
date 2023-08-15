@@ -16,13 +16,29 @@ class CadastroLancamentos extends React.Component{
     mes: '',
     ano: '',
     tipo: '',
-    status: ''
+    status: '',
+    usuario: null
   }
   
   constructor(){
     super()
     this.service = new LancamentoService()
   }
+
+  componentDidMount(){
+    const params = this.props.match.params
+    if(params.id){
+      console.log(params.id);
+        this.service
+            .buscarPorId(params.id)
+            .then(response => {
+                this.setState( {...response.data} )
+            })
+            .catch(erros => {
+                mensagemErro(erros.response.data)
+            })
+    }
+}
 
   handleChange = (event) =>{
     const value = event.target.value
@@ -44,6 +60,29 @@ class CadastroLancamentos extends React.Component{
       .then( response =>{
         mensagemSucesso("Salvo com Sucesso!")
         this.props.history.push('/lancamentos')
+      })
+      .catch(error =>{
+        console.log(error.response);
+        mensagemErro(error.response.data)
+      })
+  }
+
+  atualizar = () => {
+    const usuarioLogado = LocalStorageService.obterItem('_usuario_logado')
+    const lancamento = {
+      id: this.state.id,
+      usuario: usuarioLogado.id,
+      descricao: this.state.descricao,
+      valor : this.state.valor,
+      mes: this.state.mes,
+      ano: this.state.ano,
+      tipo: this.state.tipo,
+      status: this.state.status
+    }
+    this.service.atualizarLancamento(lancamento)
+      .then( response =>{
+        mensagemSucesso("Atualizado com Sucesso!")
+        this.props.history.push('/consulta-lancamentos')
       })
       .catch(error =>{
         console.log(error.response);
@@ -138,6 +177,13 @@ class CadastroLancamentos extends React.Component{
           onClick={this.submit}
         >
           Salvar
+        </button>
+        <button
+          className="btn btn-success"
+          style={{marginRight: '10px'}}
+          onClick={this.atualizar}
+        >
+          Atualizar
         </button>
         <button
           className="btn btn-danger"

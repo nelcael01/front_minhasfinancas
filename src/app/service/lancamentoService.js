@@ -36,6 +36,14 @@ class LancamentoService extends ApiService{
     return this.delete(`/${id}`)
   }
 
+  buscarPorId(id){
+    return this.get(`/${id}`)
+  }
+
+  atualizarLancamento(lancamento){
+    return this.put(`/${lancamento.id}`, lancamento)
+  }
+
   obterListaMeses(){
     return [
       {label: 'SELECIONE...', value: ''},
