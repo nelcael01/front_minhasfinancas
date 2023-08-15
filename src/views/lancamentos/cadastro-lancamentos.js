@@ -17,7 +17,8 @@ class CadastroLancamentos extends React.Component{
     ano: '',
     tipo: '',
     status: '',
-    usuario: null
+    usuario: null,
+    atualizando: false
   }
   
   constructor(){
@@ -32,7 +33,7 @@ class CadastroLancamentos extends React.Component{
         this.service
             .buscarPorId(params.id)
             .then(response => {
-                this.setState( {...response.data} )
+                this.setState( {...response.data, atualizando: true} )
             })
             .catch(erros => {
                 mensagemErro(erros.response.data)
@@ -56,6 +57,17 @@ class CadastroLancamentos extends React.Component{
       tipo: this.state.tipo,
       usuario: usuarioLogado.id
     }
+
+    try {
+      this.service.validar(lancamento)
+    } catch (error) {
+      const msgs = error.mensagens
+      msgs.forEach(msg =>{
+        mensagemErro(msg)
+        return false
+      })
+    }
+
     this.service.salvar(lancamento)
       .then( response =>{
         mensagemSucesso("Salvo com Sucesso!")
@@ -95,7 +107,7 @@ class CadastroLancamentos extends React.Component{
     const meses = this.service.obterListaMeses()
 
     return(
-      <Card title='Cadastro de Lançamento'>
+      <Card title={this.state.atualizando ? 'Atualização de Lançamento' : "Cadastro de Lançamento"}>
         <div className="row" style={{marginBottom: '10px'}}>
           <div className="col-md-12">
           <FormGroup id='inputDescricao' label='Descrição: *'>
@@ -171,20 +183,26 @@ class CadastroLancamentos extends React.Component{
           </div>
         </div>
         <br />
-        <button
-          className="btn btn-success"
-          style={{marginRight: '10px'}}
-          onClick={this.submit}
-        >
-          Salvar
-        </button>
-        <button
-          className="btn btn-success"
-          style={{marginRight: '10px'}}
-          onClick={this.atualizar}
-        >
-          Atualizar
-        </button>
+        { this.state.atualizando ?
+          (
+            <button
+              className="btn btn-success"
+              style={{marginRight: '10px'}}
+              onClick={this.atualizar}
+            >
+              Atualizar
+            </button>
+          ) : 
+          (
+            <button
+              className="btn btn-success"
+              style={{marginRight: '10px'}}
+              onClick={this.submit}
+            >
+              Salvar
+            </button>
+          )
+        }
         <button
           className="btn btn-danger"
           onClick={ e => {this.props.history.push('/consulta-lancamentos')}}
