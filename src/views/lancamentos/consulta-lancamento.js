@@ -6,7 +6,7 @@ import SelectMenu from '../../components/selectMenu';
 import LancamentosTable from './lancamentosTable';
 import LancamentoService from "../../app/service/lancamentoService";
 import LocalStorageService from './../../app/service/localStorageService';
-import { mensagemErro, mensagemSucesso } from "../../components/toastr";
+import { mensagemAlerta, mensagemErro, mensagemSucesso } from "../../components/toastr";
 import {Dialog} from 'primereact/dialog'
 import {Button} from 'primereact/button'
 
@@ -79,6 +79,9 @@ class ConsultaLancamento extends React.Component{
     }
     this.service.consultar(lancamentoFiltro)
       .then(response => {
+        if (response.data.length < 1) {
+          mensagemAlerta("Nenhum resultado encontrado")
+        }
         this.setState({lancamentos: response.data})
       }).catch(erro => {
         mensagemErro(erro.data)

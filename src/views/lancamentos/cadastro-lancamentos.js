@@ -71,7 +71,7 @@ class CadastroLancamentos extends React.Component{
     this.service.salvar(lancamento)
       .then( response =>{
         mensagemSucesso("Salvo com Sucesso!")
-        this.props.history.push('/lancamentos')
+        this.props.history.push('/consulta-lancamentos')
       })
       .catch(error =>{
         console.log(error.response);
@@ -189,7 +189,7 @@ class CadastroLancamentos extends React.Component{
               className="btn btn-success"
               onClick={this.atualizar}
             >
-              Atualizar
+              <i className="pi pi-refresh"></i> Atualizar
             </button>
           ) : 
           (
@@ -197,7 +197,7 @@ class CadastroLancamentos extends React.Component{
               className="btn btn-success"
               onClick={this.submit}
             >
-              Salvar
+              <i className="pi pi-save"></i> Salvar
             </button>
           )
         }
@@ -205,7 +205,7 @@ class CadastroLancamentos extends React.Component{
           className="btn btn-danger"
           onClick={ e => {this.props.history.push('/consulta-lancamentos')}}
         >
-          Cancelar
+          <i className="pi pi-times"></i> Cancelar
         </button>
       </Card>
     )

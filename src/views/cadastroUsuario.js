@@ -4,6 +4,8 @@ import FormGroup from './../components/form-group';
 import {withRouter} from 'react-router-dom'
 import UsuarioService from './../app/service/usuarioService';
 import {mensagemSucesso, mensagemErro} from '../components/toastr'
+import { Button } from 'primereact/button';
+        
 
 class CadastroUsuario extends React.Component{
 
@@ -98,8 +100,12 @@ class CadastroUsuario extends React.Component{
                   />
                 </FormGroup>
               <br />
-              <button type="button" className="btn btn-success" onClick={this.cadastrar}>Salvar</button>
-              <button onClick={this.cancelar} type="button" className="btn btn-danger">Cancelar</button>
+              <button type="button" className="btn btn-success" onClick={this.cadastrar}>
+                <i className="pi pi-save"></i> Salvar
+              </button>
+              <button onClick={this.cancelar} type="button" className="btn btn-danger">
+                <i className="pi pi-times"></i> Cancelar
+              </button>
             </div>
           </div>
         </div>
