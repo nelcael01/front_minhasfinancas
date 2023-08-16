@@ -16,33 +16,36 @@ function LancamentosTable(props) {
           <button
               type="button"
               className="btn btn-success"
+              title="Efetivar"
+              disabled={lancamento.status !== 'PENDENTE'}
               onClick={e => props.alterarStatus(lancamento, 'EFETIVADO')}
-              style={{marginRight:'10px'}}
             >
-              Efetivar
+              <i className="pi pi-check"></i>
           </button>
           <button
               type="button"
               className="btn btn-warning"
+              title="Cancelar"
+              disabled={lancamento.status !== 'PENDENTE'} 
               onClick={e => props.alterarStatus(lancamento, 'CANCELADO')}
-              style={{marginRight:'10px'}}
             >
-              Cancelar
+              <i className="pi pi-times"></i>
           </button>
           <button
             type="button"
             className="btn btn-primary"
+            title="Editar"
             onClick={e => props.editAction(lancamento.id)}
-            style={{marginRight:'10px'}}
           >
-            Editar
+            <i className="pi pi-pencil"></i>
           </button>
           <button
             type="button"
             className="btn btn-danger" 
+            title="Excluir"
             onClick={e => props.deleteAction(lancamento.id)}
           >
-            Deletar
+            <i className="pi pi-trash"></i>
           </button>
         </td>
       </tr>

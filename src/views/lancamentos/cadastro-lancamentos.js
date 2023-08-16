@@ -187,7 +187,6 @@ class CadastroLancamentos extends React.Component{
           (
             <button
               className="btn btn-success"
-              style={{marginRight: '10px'}}
               onClick={this.atualizar}
             >
               Atualizar
@@ -196,7 +195,6 @@ class CadastroLancamentos extends React.Component{
           (
             <button
               className="btn btn-success"
-              style={{marginRight: '10px'}}
               onClick={this.submit}
             >
               Salvar
