@@ -14,6 +14,22 @@ function LancamentosTable(props) {
         <td>{lancamento.status}</td>
         <td>
           <button
+              type="button"
+              className="btn btn-success"
+              onClick={e => props.alterarStatus(lancamento, 'EFETIVADO')}
+              style={{marginRight:'10px'}}
+            >
+              Efetivar
+          </button>
+          <button
+              type="button"
+              className="btn btn-warning"
+              onClick={e => props.alterarStatus(lancamento, 'CANCELADO')}
+              style={{marginRight:'10px'}}
+            >
+              Cancelar
+          </button>
+          <button
             type="button"
             className="btn btn-primary"
             onClick={e => props.editAction(lancamento.id)}

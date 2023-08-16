@@ -49,6 +49,21 @@ class ConsultaLancamento extends React.Component{
     })
   }
 
+  alterarStatus = (lancamento, status) => {
+      this.service
+        .alterarStatus(lancamento.id, status)
+          .then(response => {
+            const lancamentos = this.state.lancamentos;
+            const index = lancamentos.indexOf(lancamento)
+            if (index !== -1) {
+              lancamento['status'] = status
+              lancamentos[index] = lancamento
+              this.setState({lancamentos: lancamentos}) 
+            }
+            mensagemSucesso('Status atualizado com sucesso!')
+          })
+  }
+
   buscar = () =>{
     const usuarioLogado = LocalStorageService.obterItem('_usuario_logado')
     if (!this.state.ano) {
@@ -146,6 +161,7 @@ class ConsultaLancamento extends React.Component{
                   lancamentos={this.state.lancamentos}
                   editAction={this.editAction}
                   deleteAction={this.abrirConfirmacao}
+                  alterarStatus={this.alterarStatus}
                 />
               </div>
             </div>

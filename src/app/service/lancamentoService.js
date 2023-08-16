@@ -71,6 +71,11 @@ obterListaTipos(){
   ]
 }
 
+alterarStatus(id, status){
+  const atualizarStatusDTO = {status: status}
+  return this.put(`/${id}/atualizar-status`, atualizarStatusDTO)
+}
+
 validar(lancamento){
   const erros = [];
 
