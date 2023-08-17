@@ -48,14 +48,14 @@ class Home extends React.Component {
           <a className="btn btn-primary btn-lg"
             href="#/cadastro-usuarios"
             role="button">
-            <i className="fa fa-users"></i>
+            <i className="pi pi-user"></i>
             Cadastrar Usuário
           </a>
           <a className="btn btn-danger btn-lg"
             href="#/cadastro-lancamentos"
             role="button"
           >
-            <i className="fa fa-users"></i>
+            <i className="pi pi-money-bill"></i>
             Cadastrar Lançamento
           </a>
         </p>
