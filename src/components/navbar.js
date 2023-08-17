@@ -1,5 +1,15 @@
 import React from "react";
 import NavBarItem from './navbarItem';
+import AuthService from "../app/service/authService";
+
+
+const deslogar = () => {
+  AuthService.removerUsuarioAutenticado()
+}
+
+const isUsuarioAutenticado = () => {
+  return AuthService.isUsuarioAutenticado()
+}
 
 function NavBar(props) {
   return(
@@ -18,10 +28,11 @@ function NavBar(props) {
           </button>
           <div className="collapse navbar-collapse" id="navbarResponsive">
             <ul className="navbar-nav">
-              <NavBarItem href="#/home" label="Home"/>
-              <NavBarItem href="#/cadastro-usuarios" label="Usuarios"/>
-              <NavBarItem href="#/consulta-lancamentos" label="Lançamentos"/>
-              <NavBarItem href="#/login" label="Login"/>
+
+              <NavBarItem render={isUsuarioAutenticado()} href="#/home" label="Home"/>
+              <NavBarItem render={isUsuarioAutenticado()} href="#/cadastro-usuarios" label="Usuarios"/>
+              <NavBarItem render={isUsuarioAutenticado()} href="#/consulta-lancamentos" label="Lançamentos"/>
+              <NavBarItem render={isUsuarioAutenticado()} onClick={deslogar} href="#/login" label="Sair"/>
             </ul>
           </div>
         </div>
