@@ -1,6 +1,6 @@
 import React from "react";
 import UsuarioService from "../app/service/usuarioService";
-import LocalStorageService from './../app/service/localStorageService';
+import { AuthContext } from "../main/provedorDeAutenticacao";
 
 class Home extends React.Component {
   
@@ -14,7 +14,7 @@ class Home extends React.Component {
   }
   
   componentDidMount() {
-    const usuarioLogado = LocalStorageService.obterItem('_usuario_logado')
+    const usuarioLogado = this.context.usuarioAutenticado
   
     this.usuarioService.obterSaldoPorId(usuarioLogado.id)
       .then(response =>{
@@ -26,7 +26,7 @@ class Home extends React.Component {
 
   //resolver problema de atualização de saldo quando troca o usuário
   componentDidUpdate() {
-    const usuarioLogado = LocalStorageService.obterItem('_usuario_logado')
+    const usuarioLogado = this.context.usuarioAutenticado
   
     this.usuarioService.obterSaldoPorId(usuarioLogado.id)
       .then(response =>{
@@ -63,5 +63,7 @@ class Home extends React.Component {
     )
   }
 }
+
+Home.contextType = AuthContext
 
 export default Home;

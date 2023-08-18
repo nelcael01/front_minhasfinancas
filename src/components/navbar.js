@@ -1,22 +1,13 @@
 import React from "react";
 import NavBarItem from './navbarItem';
-import AuthService from "../app/service/authService";
-
-
-const deslogar = () => {
-  AuthService.removerUsuarioAutenticado()
-}
-
-const isUsuarioAutenticado = () => {
-  return AuthService.isUsuarioAutenticado()
-}
+import { AuthConsumer } from "../main/provedorDeAutenticacao";
 
 function NavBar(props) {
   return(
     <div>
       <div className="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
         <div className="container">
-          <a href="https://bootswatch.com/" className="navbar-brand">Minhas Finanças</a>
+          <a href="#/home" className="navbar-brand">Minhas Finanças</a>
           <button className="navbar-toggler"
             type="button"
             data-toggle="collapse"
@@ -29,10 +20,10 @@ function NavBar(props) {
           <div className="collapse navbar-collapse" id="navbarResponsive">
             <ul className="navbar-nav">
 
-              <NavBarItem render={isUsuarioAutenticado()} href="#/home" label="Home"/>
-              <NavBarItem render={isUsuarioAutenticado()} href="#/cadastro-usuarios" label="Usuarios"/>
-              <NavBarItem render={isUsuarioAutenticado()} href="#/consulta-lancamentos" label="Lançamentos"/>
-              <NavBarItem render={isUsuarioAutenticado()} onClick={deslogar} href="#/login" label="Sair"/>
+              <NavBarItem render={props.isUsuarioAutenticado} href="#/home" label="Home"/>
+              <NavBarItem render={props.isUsuarioAutenticado} href="#/cadastro-usuarios" label="Usuarios"/>
+              <NavBarItem render={props.isUsuarioAutenticado} href="#/consulta-lancamentos" label="Lançamentos"/>
+              <NavBarItem render={props.isUsuarioAutenticado} onClick={props.deslogar} href="#/login" label="Sair"/>
             </ul>
           </div>
         </div>
@@ -41,4 +32,8 @@ function NavBar(props) {
   )
 }
 
-export default NavBar
+export default () => (
+  <AuthConsumer>
+    {(context) => (<NavBar isUsuarioAutenticado={context.isAutenticado} deslogar={context.encerrarSessao}></NavBar>)}
+  </AuthConsumer>
+)
